@@ -1,0 +1,330 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#fff8f4">
+  <title>For You, Always</title>
+  <style>
+    :root {
+      --ink: #3f2835;
+      --muted: #806775;
+      --rose: #c75f78;
+      --deep-rose: #963f60;
+      --cream: #fff8f4;
+      --paper: #fffdfb;
+      --gold: #c69753;
+      --line: #f0dfe2;
+      --shadow: 0 22px 65px rgba(112, 56, 76, .12);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--cream);
+      font-family: Georgia, "Times New Roman", serif;
+      line-height: 1.7;
+    }
+    button { font: inherit; }
+    .page { overflow: hidden; }
+    .hero {
+      min-height: 92vh;
+      display: grid;
+      place-items: center;
+      padding: 76px 24px 88px;
+      text-align: center;
+      position: relative;
+      background:
+        radial-gradient(ellipse at 50% 15%, rgba(255,255,255,.96), transparent 42%),
+        linear-gradient(155deg, #fff9f4 4%, #fbe8e9 58%, #f7e8dc 100%);
+    }
+    .hero::before, .hero::after {
+      content: "✦"; position: absolute; color: rgba(198,151,83,.58); font-size: 20px;
+    }
+    .hero::before { top: 17%; left: 14%; }
+    .hero::after { right: 16%; bottom: 20%; font-size: 14px; }
+    .hero-inner { max-width: 760px; position: relative; z-index: 1; }
+    .eyebrow {
+      color: var(--deep-rose); text-transform: uppercase; letter-spacing: .22em;
+      font: 600 11px/1.4 system-ui, sans-serif;
+    }
+    h1 { font-size: clamp(3.2rem, 9vw, 6.5rem); line-height: .98; letter-spacing: -.055em; font-weight: 400; margin: 24px 0; }
+    h1 em { color: var(--rose); font-weight: 400; }
+    .hero-copy { max-width: 570px; margin: 0 auto; color: var(--muted); font-size: clamp(1.05rem, 2.4vw, 1.25rem); }
+    .heart-seal { width: 58px; height: 58px; margin: 34px auto 0; border: 1px solid rgba(198,151,83,.55); border-radius: 50%; display: grid; place-items: center; color: var(--rose); font-size: 25px; background: rgba(255,255,255,.45); }
+    .scroll-cue { display: inline-block; margin-top: 34px; font: 11px system-ui,sans-serif; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); text-decoration: none; }
+    main { max-width: 1030px; margin: 0 auto; padding: 0 24px 100px; }
+    section { margin: 0 auto; padding: 82px 0; }
+    .section-heading { text-align: center; max-width: 680px; margin: 0 auto 38px; }
+    .section-heading h2 { font-size: clamp(2.1rem, 5vw, 3.35rem); line-height: 1.12; font-weight: 400; letter-spacing: -.035em; margin: 12px 0 14px; }
+    .section-heading p { color: var(--muted); margin: 0; }
+    .answer-card {
+      max-width: 760px; margin: 0 auto; padding: clamp(30px, 6vw, 62px);
+      background: var(--paper); border: 1px solid #f3e5e3; border-radius: 8px;
+      box-shadow: var(--shadow); text-align: center; position: relative;
+    }
+    .answer-card::before { content: "“"; position: absolute; top: 9px; left: 24px; color: #f2d8dc; font-size: 90px; line-height: 1; }
+    .question { color: var(--muted); font-style: italic; font-size: 1.25rem; }
+    .answer { font-size: clamp(2.7rem, 7vw, 5.4rem); color: var(--deep-rose); line-height: 1; margin: 18px 0 22px; letter-spacing: -.045em; }
+    .answer-card p:last-child { max-width: 580px; margin: 0 auto; color: #6f5963; }
+    .notes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 17px; }
+    .note {
+      min-height: 205px; background: #fffdfb; border: 1px solid var(--line); padding: 25px 24px;
+      box-shadow: 0 10px 32px rgba(112,56,76,.055); position: relative;
+    }
+    .note:nth-child(2), .note:nth-child(5) { transform: translateY(13px); }
+    .note .number { font: 11px system-ui,sans-serif; color: var(--gold); letter-spacing: .15em; }
+    .note h3 { font-weight: 400; font-size: 1.35rem; margin: 10px 0 8px; color: var(--deep-rose); }
+    .note p { color: var(--muted); margin: 0; font-size: .98rem; }
+    .promise-band { margin: 24px 0; padding: 28px; text-align: center; color: #fff9f7; background: linear-gradient(120deg,#9a4564,#c76e7e); border-radius: 4px; font-size: 1.18rem; }
+    .devotion-card {
+      display: grid; grid-template-columns: 1fr 1fr; align-items: center; gap: 34px;
+      background: #fffdfb; border: 1px solid #efe1d2; padding: clamp(20px, 5vw, 48px); box-shadow: var(--shadow);
+    }
+    .devotion-art { min-height: 330px; display: grid; place-items: center; border-radius: 3px; overflow: hidden; background: linear-gradient(#f8f0e6, #f4e4d8); }
+    .devotion-art svg { width: min(100%, 390px); height: auto; }
+    .devotion-art img { display: block; width: min(100%, 390px); max-height: 390px; object-fit: contain; }
+    .devotion-copy h2 { font-size: clamp(2rem,4vw,3rem); line-height: 1.08; font-weight: 400; margin: 11px 0 16px; }
+    .devotion-copy p { color: var(--muted); }
+    .mantra { margin-top: 24px; padding: 16px 18px; border-left: 2px solid var(--gold); background: #fcf7f0; color: #745d4b; font-style: italic; }
+    .proposal {
+      background: linear-gradient(160deg,#fce9e8,#fff7ed 62%,#f8e8da); padding: clamp(28px,6vw,62px);
+      text-align: center; border: 1px solid #f1ded8;
+    }
+    .proposal-art { max-width: 700px; margin: 0 auto 20px; }
+    .proposal-art svg { width: 100%; height: auto; display: block; }
+    .proposal-art img { display: block; width: min(100%, 600px); height: auto; margin: 0 auto; }
+    .proposal h2 { font-size: clamp(2.4rem,6vw,4.5rem); line-height: 1.05; font-weight: 400; margin: 15px auto; max-width: 760px; }
+    .proposal p { max-width: 620px; margin: 0 auto; color: var(--muted); }
+    .proposal-question { margin: 30px auto 0 !important; font-size: 1.45rem; color: var(--deep-rose) !important; font-style: italic; }
+    .closing { text-align: center; max-width: 700px; padding: 82px 0 10px; margin: 0 auto; }
+    .closing .signature { font-size: clamp(2rem,5vw,3rem); color: var(--deep-rose); font-style: italic; margin-top: 20px; }
+    .tiny-heart { color: var(--rose); letter-spacing: .6em; font-size: 15px; }
+    footer { text-align: center; padding: 28px 20px 38px; color: #9a8390; font: 11px system-ui,sans-serif; letter-spacing: .1em; }
+    .reveal { opacity: 0; transform: translateY(18px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: none; }
+    @media (max-width: 720px) {
+      .notes-grid { grid-template-columns: 1fr; gap: 12px; }
+      .note { min-height: auto; }
+      .note:nth-child(2), .note:nth-child(5) { transform: none; }
+      .devotion-card { grid-template-columns: 1fr; }
+      .devotion-art { min-height: 260px; }
+      .hero { min-height: 88vh; }
+      section { padding: 62px 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after { transition-duration: .01ms !important; animation-duration: .01ms !important; }
+      .reveal { opacity: 1; transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header class="hero">
+      <div class="hero-inner">
+        <div class="eyebrow">A little note from my heart</div>
+        <h1>For you,<br><em>always.</em></h1>
+        <p class="hero-copy">For the days you need a reminder, for the quiet moments between us, and for every new beginning still waiting to be ours.</p>
+        <div class="heart-seal" aria-hidden="true">♡</div>
+        <a class="scroll-cue" href="#the-answer">Read this slowly ↓</a>
+      </div>
+    </header>
+
+    <main>
+      <section id="the-answer" class="reveal">
+        <div class="section-heading">
+          <div class="eyebrow">The question that deserves a real answer</div>
+          <h2>Do you still love me?</h2>
+        </div>
+        <article class="answer-card">
+          <div class="question">If your heart is asking me today…</div>
+          <div class="answer">Yes. Still.</div>
+          <p>Yes, in the ordinary hours and the extraordinary ones. Yes, when life feels light, and yes when it asks more of us. I love you for who you are—not for being perfect, not for always knowing what to say, but for being you. My love is here, and I want to keep showing it in the ways that matter: with honesty, tenderness, patience, and the choice to meet you again and again.</p>
+        </article>
+      </section>
+
+      <section class="reveal">
+        <div class="section-heading">
+          <div class="eyebrow">Things I hope you never forget</div>
+          <h2>Little notes, just for you</h2>
+          <p>Keep these close for the moments when you need a softer thought to hold.</p>
+        </div>
+        <div class="notes-grid">
+          <article class="note"><div class="number">NOTE 01</div><h3>You are chosen</h3><p>Not only in grand gestures. I choose you in the small, daily ways—in listening, in making time, and in caring about what matters to you.</p></article>
+          <article class="note"><div class="number">NOTE 02</div><h3>You can be yourself</h3><p>You never have to earn tenderness by being cheerful, easy, or perfectly put together. I want the honest you, on every kind of day.</p></article>
+          <article class="note"><div class="number">NOTE 03</div><h3>Your heart is safe with me</h3><p>Your feelings are not too much. I will do my best to hear you with care, speak with kindness, and repair things when I get them wrong.</p></article>
+          <article class="note"><div class="number">NOTE 04</div><h3>I notice your magic</h3><p>The way you care, the way you laugh, the way you make a room feel warmer—I notice more than I always remember to say.</p></article>
+          <article class="note"><div class="number">NOTE 05</div><h3>We have room to grow</h3><p>We are both still becoming. We can learn each other better, change our minds, make new memories, and find our way forward together.</p></article>
+          <article class="note"><div class="number">NOTE 06</div><h3>There is no rush</h3><p>We do not have to have every answer today. We can take one gentle step at a time, with truth between us and hope ahead.</p></article>
+        </div>
+      </section>
+
+      <div class="promise-band reveal">“Even when I don't say it perfectly, please know this: you matter to me, your happiness matters to me, and I am grateful that our paths found each other.”</div>
+
+      <section class="reveal">
+        <div class="section-heading">
+          <div class="eyebrow">A quiet prayer for us</div>
+          <h2>May our love keep finding its way</h2>
+        </div>
+        <article class="devotion-card">
+          <div class="devotion-art" role="img" aria-label="A devotional illustration of water being offered over a Shivling, with a small bilva leaf and flowers">
+            <svg viewBox="0 0 440 380" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="stone" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#565362"/><stop offset="1" stop-color="#252938"/></linearGradient>
+                <linearGradient id="water" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#e1ffff"/><stop offset="1" stop-color="#78c4ca"/></linearGradient>
+                <radialGradient id="glow"><stop stop-color="#fff4cb" stop-opacity=".9"/><stop offset="1" stop-color="#fff4cb" stop-opacity="0"/></radialGradient>
+              </defs>
+              <circle cx="220" cy="175" r="158" fill="url(#glow)"/>
+              <!-- A suspended copper kalash pours a visible stream onto the lingam. -->
+              <path d="M211 45h18l-2 16q20 12 21 34l-7 10h-42l-7-10q1-22 21-34z" fill="#bd925c" stroke="#977044" stroke-width="2"/>
+              <path d="M203 86q17 7 34 0M208 61h24" fill="none" stroke="#ead19b" stroke-width="3"/>
+              <path d="M218 104v72" stroke="url(#water)" stroke-width="9" stroke-linecap="round"/>
+              <path d="M211 113q7 4 14 0M211 143q7 4 14 0" stroke="#fff" stroke-width="2" opacity=".75"/>
+              <!-- Classic upright oval lingam, with the sacred horizontal tripundra. -->
+              <path d="M169 246v-83c0-33 22-58 51-58s51 25 51 58v83z" fill="url(#stone)" stroke="#89818a" stroke-width="2"/>
+              <ellipse cx="220" cy="163" rx="51" ry="12" fill="#6e6975"/>
+              <path d="M185 148h70M185 158h70" stroke="#f1eee8" stroke-width="5" stroke-linecap="round"/>
+              <circle cx="220" cy="168" r="4" fill="#c95e68"/>
+              <!-- Yoni base with its distinct forward spout. -->
+              <path d="M111 245q0-20 24-20h170q24 0 24 20v17l62 22-7 15H56l-7-15 62-22z" fill="#918994" stroke="#6e6875" stroke-width="3"/>
+              <path d="M116 246q104 22 208 0" fill="none" stroke="#c9c1c7" stroke-width="4"/>
+              <path d="M219 176c0 29 1 48 1 64 0 10 18 16 47 17 34 1 67 8 98 25" fill="none" stroke="url(#water)" stroke-width="7" stroke-linecap="round"/>
+              <path d="M362 276q12 4 19 11" fill="none" stroke="#d8f8f5" stroke-width="3" stroke-linecap="round"/>
+              <!-- Bilva leaves and flowers rest as offerings at the base. -->
+              <path d="M101 270q-23-26-14-45 23 6 28 34M103 268q1-31-14-41" fill="#708867" stroke="#9aac82" stroke-width="2"/>
+              <path d="M333 265q19-23 38-16-2 21-29 29" fill="#708867" stroke="#9aac82" stroke-width="2"/>
+              <g fill="#c75f78"><circle cx="128" cy="291" r="6"/><circle cx="140" cy="297" r="4"/><circle cx="310" cy="292" r="6"/></g>
+              <g fill="#e7bf72"><circle cx="128" cy="291" r="2"/><circle cx="310" cy="292" r="2"/></g>
+              <path d="M106 122l4 9 9 4-9 4-4 9-4-9-9-4 9-4zM331 132l3 7 7 3-7 3-3 7-3-7-7-3 7-3z" fill="#d0a963" opacity=".9"/>
+            </svg>
+          </div>
+          <div class="devotion-copy">
+            <div class="eyebrow">A wish made with devotion</div>
+            <h2>May what is good in us grow.</h2>
+            <p>As water is offered over the Shivling with a quiet heart, I offer a prayer for peace, patience, and a love guided by respect. May we keep choosing truth over fear, gentleness over pride, and understanding when the road feels uncertain.</p>
+            <p>This little card is a wish—not a promise that life will always be easy, but a reminder to meet it with faith, care, and open hearts.</p>
+            <div class="mantra">May Shiva bless us with steadiness, courage, and the grace to begin again.</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="reveal">
+        <div class="proposal">
+          <div class="eyebrow">A new chapter, if you'll have me</div>
+          <div class="proposal-art" role="img" aria-label="A boy kneels to propose to a girl at sunset, with a new path opening toward the sunrise">
+            <svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <defs>
+                <linearGradient id="sky" x1="0" y1="0" x2="0" y2="1"><stop stop-color="#f6c3b9"/><stop offset=".68" stop-color="#f6d7bf"/><stop offset="1" stop-color="#f8e9d4"/></linearGradient>
+                <linearGradient id="path" x1="0" x2="0" y1="0" y2="1"><stop stop-color="#fff0cb"/><stop offset="1" stop-color="#d9a982"/></linearGradient>
+              </defs>
+              <rect x="0" y="0" width="760" height="320" rx="4" fill="url(#sky)"/>
+              <circle cx="574" cy="111" r="53" fill="#fff3d4" opacity=".88"/>
+              <path d="M0 221 Q110 165 210 212 Q307 155 414 215 Q548 160 760 216 L760 320 L0 320Z" fill="#b78382" opacity=".55"/>
+              <path d="M0 247 Q122 196 256 241 Q376 191 510 239 Q655 192 760 238 L760 320 L0 320Z" fill="#8b6875" opacity=".75"/>
+              <path d="M344 320 Q376 266 397 224 Q416 265 452 320Z" fill="url(#path)" opacity=".95"/>
+              <path d="M0 292 Q80 258 151 287 M611 278 Q681 248 760 277" fill="none" stroke="#64705f" stroke-width="5" stroke-linecap="round"/>
+              <g fill="#68775f"><circle cx="83" cy="271" r="15"/><circle cx="103" cy="269" r="11"/><circle cx="660" cy="254" r="17"/><circle cx="688" cy="257" r="12"/><circle cx="717" cy="251" r="16"/></g>
+              <!-- The couple face one another; he kneels and offers an open ring box. -->
+              <circle cx="279" cy="151" r="20" fill="#62474b"/><path d="M260 150q2-29 24-28 17 2 18 27l-10 7q-9-17-30-4z" fill="#302d37"/>
+              <path d="M261 174q17-11 34 1l13 44-39 11-20-28z" fill="#526d79"/>
+              <path d="M269 218l-12 28q-5 12 8 15l36 3q17 0 11-14l-13-30z" fill="#343644"/>
+              <path d="M284 252l-49 1q-22 0-30 13l-4 9 73 1q18-2 22-14z" fill="#343644"/>
+              <path d="M262 188q-25 2-43 20l-18-5" fill="none" stroke="#a96f67" stroke-width="10" stroke-linecap="round"/>
+              <path d="M203 202l-13-2" stroke="#a96f67" stroke-width="7" stroke-linecap="round"/>
+              <path d="M181 197l16-5 10 7-15 7z" fill="#bd826b" stroke="#8f5a50" stroke-width="2"/>
+              <circle cx="195" cy="198" r="2.5" fill="#fff0c4"/>
+              <!-- girl, reaching toward him -->
+              <circle cx="395" cy="145" r="20" fill="#a66b5c"/><path d="M375 147q-5-30 19-32 23 1 23 37l-11 24-8-31q-11 16-25 15z" fill="#533b46"/>
+              <path d="M377 172q18-12 36 1l12 60-61 1z" fill="#b65071"/>
+              <path d="M379 185q-18 3-35 19l-20 1" fill="none" stroke="#bb8173" stroke-width="9" stroke-linecap="round"/>
+              <path d="M406 185q10 13 5 28l-12 17" fill="none" stroke="#bb8173" stroke-width="9" stroke-linecap="round"/>
+              <path d="M365 230q31 10 60 0l12 26q-39 13-82 0z" fill="#8f405e"/>
+              <path d="M355 256l-9 10m89-10 10 10" stroke="#a66b5c" stroke-width="8" stroke-linecap="round"/>
+              <!-- Their hands meet over the ring, making the proposal unmistakable. -->
+              <path d="M327 201q10 2 17 3m-17-3q-8 5-14 2" stroke="#bb8173" stroke-width="6" stroke-linecap="round"/>
+              <path d="M332 205l10-3" stroke="#bb8173" stroke-width="5" stroke-linecap="round"/>
+              <g fill="#fff4df" opacity=".9"><circle cx="128" cy="105" r="2"/><circle cx="157" cy="83" r="2"/><circle cx="650" cy="111" r="2"/><circle cx="536" cy="57" r="2"/></g>
+              <path d="M278 139 l3 -7 3 7 7 3-7 3-3 7-3-7-7-3z" fill="#f8df9a"/>
+            </svg>
+          </div>
+          <h2>Would you take my hand<br>and begin again with me?</h2>
+          <p>Not as strangers to what we've learned, but as two people who can bring more care, more honesty, and more hope into the next chapter. I want to keep building something kind with you—one conversation, one laugh, one ordinary day at a time.</p>
+          <p class="proposal-question">Will you say yes to a fresh start together?</p>
+        </div>
+      </section>
+
+      <div class="closing reveal">
+        <div class="tiny-heart">♡ &nbsp; ♡ &nbsp; ♡</div>
+        <p>If you ever wonder where you stand with me, come back to this page. Read the answer again. Let the notes remind you that you are loved, wanted, and worth showing up for.</p>
+        <p class="signature">With all my heart, always.</p>
+      </div>
+    </main>
+    <footer>MADE WITH LOVE · FOR ONE VERY SPECIAL PERSON</footer>
+  </div>
+  <script>
+    // Custom illustrations follow the supplied visual references while staying crisp at every screen size.
+    document.querySelector('.devotion-art').innerHTML = `<svg viewBox="0 0 440 420" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Water poured from a copper pot onto a black Shiva lingam, with tripundra, marigold garlands and a trident">
+      <defs><linearGradient id="lingam" x2="1" y2="1"><stop stop-color="#30343a"/><stop offset="1" stop-color="#111719"/></linearGradient><linearGradient id="pour" x2="0" y2="1"><stop stop-color="#c9f8ff"/><stop offset="1" stop-color="#54b7df"/></linearGradient></defs>
+      <rect width="440" height="420" fill="#f6eadb"/>
+      <g fill="#e84b0c" stroke="#f8a20d" stroke-width="4">${Array.from({length:8},(_,i)=>`<circle cx="45" cy="${-8+i*34}" r="13"/><circle cx="395" cy="${-8+i*34}" r="13"/>`).join('')}</g>
+      <g fill="#ffd443">${Array.from({length:8},(_,i)=>`<circle cx="45" cy="${-8+i*34}" r="5"/><circle cx="395" cy="${-8+i*34}" r="5"/>`).join('')}</g>
+      <!-- copper lota and a broad, clear stream of water -->
+      <path d="M253 34q-17 8-12 25l8 9 44 2q12-7 7-20l-9-18z" fill="#edae38" stroke="#c67d17" stroke-width="3"/><path d="M254 42q20 8 39 0" fill="none" stroke="#ffe092" stroke-width="3"/>
+      <path d="M258 67c-4 31-13 44-12 69 1 14 12 22 9 36-2 13-12 21-7 30" fill="none" stroke="url(#pour)" stroke-width="13" stroke-linecap="round"/><path d="M259 74c-4 23-8 39-7 53" fill="none" stroke="#effdff" stroke-width="3" stroke-linecap="round"/>
+      <!-- yoni base and its forward spout -->
+      <path d="M90 284q0-19 25-19h210q25 0 25 19v20l62 22-9 19H37l-9-19 62-22z" fill="#20282a" stroke="#485052" stroke-width="4"/><path d="M93 284q127 25 254 0" fill="none" stroke="#566062" stroke-width="4"/>
+      <!-- upright smooth lingam, three white tripundra lines and red bindu -->
+      <path d="M157 266v-96c0-42 28-72 63-72s63 30 63 72v96z" fill="url(#lingam)" stroke="#485052" stroke-width="3"/><ellipse cx="220" cy="170" rx="63" ry="12" fill="#333a3d"/>
+      <path d="M187 153h66M187 166h66M187 179h66" stroke="#f5f3ec" stroke-width="7" stroke-linecap="round"/><circle cx="220" cy="166" r="6" fill="#f2f0e7"/>
+      <!-- sacred trident with damaru -->
+      <path d="M351 338V164m0 1q-28-20-24-48 14 11 24 35 10-24 24-35 4 28-24 48m-19 8q19 16 38 0" fill="none" stroke="#e59b12" stroke-width="8" stroke-linejoin="round" stroke-linecap="round"/><path d="M339 225l24 14-24 14 24 14" fill="none" stroke="#a43d25" stroke-width="5"/>
+      <path d="M330 221l9-10 11 10-9 12zM362 221l-9-10-11 10 9 12z" fill="#d9c9a4" stroke="#74674e" stroke-width="2"/>
+      <!-- marigold offering along the front of the base -->
+      <g fill="#e84b0c" stroke="#f8a20d" stroke-width="3">${Array.from({length:8},(_,i)=>`<circle cx="${91+i*36}" cy="354" r="12"/>`).join('')}</g><g fill="#ffd443">${Array.from({length:8},(_,i)=>`<circle cx="${91+i*36}" cy="354" r="4"/>`).join('')}</g>
+      <path d="M100 383q15-22 31 0-15 15-31 0m170 0q15-22 31 0-15 15-31 0" fill="#e8aabc" stroke="#c77992" stroke-width="2"/>
+      <path d="M130 227q-14-22-4-37 22 9 19 32m142-5q12-22 28-19 0 21-22 28" fill="#72906a" stroke="#49634b" stroke-width="2"/>
+    </svg>`;
+    document.querySelector('.devotion-art').innerHTML = '<img src="shivling-reference.png" alt="Shiva lingam being offered water, with marigold garlands and a trident">';
+    document.querySelector('.proposal-art').innerHTML = `<svg viewBox="0 0 760 320" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Simple line-art boy kneeling to offer a rose to a girl">
+      <rect width="760" height="320" rx="4" fill="#fffaf5"/><g fill="none" stroke="#342c2d" stroke-width="8" stroke-linecap="round" stroke-linejoin="round">
+        <!-- girl standing, facing him -->
+        <path d="M236 74c-42-25-101-4-112 54l-7 85q-1 21 19 25l9-74q8 43 38 49l10-49 8 66q18 0 24-21l-5-80q-2-34 16-55z" fill="#fff"/>
+        <path d="M154 177l-7 69m61-1 8 58m-57-56-3 56m-14 1h23m35 0h23"/>
+        <path d="M141 116q19 18 40 2m-26 20 6 2m18-2 6 2m-13 4q8 5 15-1"/>
+        <path d="M140 180q-25 16-30 47l18 12 26-30m54-28q22 17 19 40l-19 10-16-25"/>
+        <!-- boy kneels, unmistakably on one knee -->
+        <path d="M476 125q8-42 54-39 41 4 40 47l-14 24-13-36q-20 21-57 13z" fill="#fff"/>
+        <path d="M493 157q27-14 57 2l19 76h-82l-10-48z" fill="#fff"/>
+        <path d="M493 224l-42 40q-13 13 1 22l56-2q20-2 28-20l16-31"/>
+        <path d="M531 233l24 28q12 13 31 13h57q12 0 11 10-1 10-17 10h-73q-24-2-39-18l-36-30"/>
+        <!-- arm reaches out with flower -->
+        <path d="M496 176q-37 6-70 29l-44-4"/>
+        <path d="M388 201l-32-20m32 20-34-6m34 6-28-13"/>
+        <!-- rose -->
+        <path d="M348 179q-13-12-1-22 6-13 16-3 13-8 18 5 12 9-1 20l-16 10z" fill="#d96e78" stroke-width="5"/>
+        <path d="M364 190v34m0-22-13-6m13 15 13-8" stroke="#6e8866" stroke-width="5"/>
+        <!-- tender faces turned toward one another -->
+        <path d="M504 137q7 5 14 1m28 0q6 3 11-1m-27 12q8 5 15-1" stroke-width="4"/>
+        <path d="M130 141q7 5 14 1m23 0q6 3 11-1m-20 13q7 5 14 0" stroke-width="4"/>
+      </g><text x="380" y="54" text-anchor="middle" fill="#a44f66" font-family="Georgia,serif" font-size="28" font-style="italic">a new beginning, together</text>
+    </svg>`;
+    document.querySelector('.proposal-art').innerHTML = '<img src="proposal-reference.webp" alt="A boy kneels and offers a rose to a girl">';
+    const items = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      items.forEach((item) => observer.observe(item));
+    } else {
+      items.forEach((item) => item.classList.add('visible'));
+    }
+  </script>
+</body>
+</html>
